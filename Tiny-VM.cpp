@@ -4,8 +4,8 @@
 
 int main()
 {
-    Parser parser;
-    VM vm;
+    Parser parser();
+    VM vm();
 
     while (true) {
         std::string x;

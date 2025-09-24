@@ -2,18 +2,17 @@
 #include <iostream>
 #include <cstdint>
 #include <limits>
-
-enum class OpCode { ADD, LOAD, MOVE, STORE };
+#include <vector>
 
 class Instruction
 {
-	OpCode op;
 
-	Instruction();
+public:
+	Instruction(VM& vm);
 	// Operations
-	void move();
-	void load(); // from RAM addres to register
-	void store(); // from register to RAM
-	void add(VM& vm, int regs1, int regs2);
+	void move(const std::vector<int>& args);
+	void load(const std::vector<int>& args); // from RAM addres to register
+	void store(const std::vector<int>& args); // from register to RAM
+	void add(const std::vector<int>& args);
 };
 
