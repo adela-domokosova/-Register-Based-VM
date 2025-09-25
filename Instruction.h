@@ -3,16 +3,17 @@
 #include <cstdint>
 #include <limits>
 #include <vector>
+#include "VM.h"
 
 class Instruction
 {
 
 public:
-	Instruction(VM& vm);
+	Instruction();
 	// Operations
-	void move(const std::vector<int>& args);
-	void load(const std::vector<int>& args); // from RAM addres to register
-	void store(const std::vector<int>& args); // from register to RAM
-	void add(const std::vector<int>& args);
+	void move(VM& vm, const std::vector<int>& args);
+	void load(VM& vm, const std::vector<int>& args); // from RAM addres to register
+	void store(VM& vm, const std::vector<int>& args); // from register to RAM
+	void add(VM& vm, const std::vector<int>& args);
 };
 

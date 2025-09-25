@@ -1,8 +1,8 @@
 #include "Instruction.h"
 
-Instruction::Instruction(VM& vm) : vm(vm) {};
+Instruction::Instruction() {};
 
-void Instruction::add(const std::vector<int>& args) {
+void Instruction::add(VM& vm, const std::vector<int>& args) {
 	if (args.size() == 2) {
 		uint32_t maxVal = std::numeric_limits<uint16_t>::max(); // 65535
 		uint32_t sum = (uint32_t)vm.regs[args.at(1)] + (uint32_t)vm.regs[args.at(2)];
@@ -19,5 +19,5 @@ void Instruction::add(const std::vector<int>& args) {
 
 };
 
-void Instruction::load(const std::vector<int>& args) {
+void Instruction::load(VM& vm, const std::vector<int>& args) {
 }
