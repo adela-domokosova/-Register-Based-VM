@@ -1,14 +1,15 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Instruction.h"
 #pragma once
 
-enum TokenType { VARIABLE, INSTRUCTION, METHOD , OPERATORS };
+enum TokenType { VARIABLE, INSTRUCTION, METHOD , OPERATORS, NUMBER };
 
 struct token
 {
 	std::string value;
-	enum TokenType;
+	TokenType type;
 };
 
 class Parser
@@ -17,10 +18,11 @@ class Parser
 public:	
 	Parser();
 	std::vector<token> parse(std::string x);
-	std::vector<token> tokenize(std::string x, std::string del);
 private:
-	void parseProgram(std::string str);
-	void parseLine();
-
+	std::vector<token> tokenize(std::string x, std::string del);
+	bool is_number(const std::string& str);
+	token create_token(std::string helper);
+	//void parseProgram(std::string str);
+	//void parseLine();
 };
 

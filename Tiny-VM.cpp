@@ -11,7 +11,7 @@ int main()
         std::cin >> x;
 
 
-        vm.execute(vm , vm.parser.parse(x)); // returns whats needed to execute in vm
+        vm.execute(vm.parser.parse(x)); // returns whats needed to execute in vm
 
 
     

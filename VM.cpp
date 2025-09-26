@@ -1,15 +1,15 @@
 #include "VM.h"  
+#include "Instruction.h"
 
 VM::VM() {};
 
-VM::VM(Instruction instruction, Parser parser){
-	this->instruction = Instruction();
+VM::VM(Parser parser){
 	this->parser = Parser();
-	actions["add"] = [&](VM& vm, const std::vector<int>& args) { instruction.add(vm, args); } ;
-	actions["load"], [&](VM& vm, const std::vector<int>& args) { instruction.load(vm, args); };
+	actions["add"] = [&](VM& vm, const std::vector<int>& args) { Instruction::add(vm, args); } ;
+	actions["load"] = [&](VM& vm, const std::vector<int>& args) { Instruction::load(vm, args); };
 };
 
-void VM::execute(VM vm, std::vector<token> tokens) {
+void VM::execute(std::vector<token> tokens) {
 	// tokens vector includes one line of tokenized machine code
 	// first token in expected to be type instruction
 
