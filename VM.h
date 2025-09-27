@@ -19,6 +19,8 @@ public:
 	std::uint16_t sp; // stack pointer
 	std::uint8_t flags; // Z, C, O, N
 
+	// word RAM -> addreses are ram[0-255] -> each addres can hold 16 bits
+	//could be switched for more "real-life" version
 	static constexpr size_t RAM_SIZE = 256;
 	std::array<uint16_t, RAM_SIZE> ram{};
 
@@ -27,4 +29,3 @@ public:
 	VM(Parser parser);
 	void execute(std::vector<token> tokens);
 };
-

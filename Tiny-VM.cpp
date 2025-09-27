@@ -1,5 +1,6 @@
 #include <iostream>
 #include "VM.h"
+#include "Instruction.h"
 
 int main()
 {
