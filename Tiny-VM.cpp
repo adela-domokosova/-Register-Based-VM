@@ -9,7 +9,7 @@ int main()
     while (true) {
         std::string x;
         std::cout << "user@VM : ";
-        std::cin >> x;
+        std::getline(std::cin, x);
 
 
         vm.execute(vm.parser.parse(x)); // returns whats needed to execute in vm

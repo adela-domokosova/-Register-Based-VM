@@ -5,7 +5,7 @@
 
 Instruction::Instruction() {};
 
-void Instruction::add(VM& vm, const std::vector<int>& args) {
+void Instruction::add(VM& vm, const std::vector<std::string>& args) {
 	// better use static_cast (replace C-style cast)
 	//on what level do i check for the type of the args
 	  // when vm gets the args?, when i save them to the args vector or in the function 
@@ -38,7 +38,7 @@ void Instruction::move(VM& vm, const std::vector<std::string>& args) {
 
 		if (args.at(1)[0] == 'R') {
 		std::string srcStr = args.at(1).substr(1);
-		int src = std::stoi(srcStr);
+		src = std::stoi(srcStr);
 		}
 		else{
 			int des = (args.at(0))[2];

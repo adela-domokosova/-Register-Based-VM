@@ -13,22 +13,47 @@ std::vector<token> Parser::parse(std::string x) {
 };
 
 std::vector<token> Parser::tokenize(std::string x, std::string del) {
+	std::cout << x << "\n";
+
 	// i expect usage of ; at the end of lines
 	std::string helper = "";
 	std::vector<token> result;
+
+	//special characters
+	std::unordered_set<char> operators = { '+', '-', '*', '/', '='};
+
 	for (int i = 0; i < (int)x.size(); i++) {
+		std::cout << x[i] << "\n";
+		token token;
 		// get string character
 		if (isalnum(x[i])) {
 			helper += x[i];
 		}
-		else if (isblank(x[i]) ) {
-			token token = create_token(helper);
-			result.push_back(token);
-			helper.clear();
+		else if (std::isblank(x[i])) {
+			//what about move whitespaces after each other
+			if (!helper.empty()) {
+				if (result.empty()) {
+				//first token defines the operation
+					token = create_method_token(helper);
+				}else{
+					token = create_token(helper);
+				}
+				result.push_back(token);
+				helper.clear();
+			}
+			// helper string is empty -> continue for loop
+		}
+        else if (operators.find(x[i]) != operators.end()) { // i expect that 
+			token.value = x[i];
+			token.type = TokenType::OPERATORS;
+
 		}
 		else if ((x[i])==';') {
-			token token = create_token(helper);
+			token = create_token(helper);
 			result.push_back(token);
+			for (auto& i : result) {
+				std::cout << i.value << "\n";
+			}
 			return result;
 		}
 		else {
@@ -52,6 +77,7 @@ bool Parser::is_number(const std::string& str) {
 	return true;
 }
 
+
 token Parser::create_token(std::string helper) {
 	if (is_number(helper)) {
 		return token{ helper, TokenType::NUMBER };
@@ -59,4 +85,9 @@ token Parser::create_token(std::string helper) {
 	else {
 		return token{ helper, TokenType::VARIABLE };
 	}
+}
+
+token Parser::create_method_token(std::string helper) {
+	// method token will be created -> the VM has more info about accessible methods and will check if the method is valid
+	return token{ helper, TokenType::METHOD};
 }

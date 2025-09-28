@@ -5,23 +5,21 @@ VM::VM() {};
 
 VM::VM(Parser parser){
 	this->parser = Parser();
-	actions["add"] = [&](VM& vm, const std::vector<int>& args) { Instruction::add(vm, args); } ;
-	actions["load"] = [&](VM& vm, const std::vector<int>& args) { Instruction::load(vm, args); };
 };
 
+//accepts line of VM readable code
 void VM::execute(std::vector<token> tokens) {
-	// tokens vector includes one line of tokenized machine code
-	// first token in expected to be type instruction
-
-	//for future reference, it will be usefull to use the TokenType
-	std::vector<int> args;
+	std::vector<std::string> args;
 	std::string instr = tokens.front().value;
 	tokens.erase(tokens.begin());
-	for (auto& t : tokens) {
-		args.push_back(std::stoi(t.value));
+
+	//when calling the Intruction static methods i can check for right number of args and their format
+
+	if (instr == "add") {
+		Instruction::add(*this, args);
 	}
-	if (actions.count(instr)) {
-		actions[instr](*this, args);
+	else if (instr == "move") {
+		Instruction::move(*this, args);
 	}
 	else {
 		std::cerr << "Unknown instruction: " << instr << "\n";
