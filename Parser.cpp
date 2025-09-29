@@ -13,7 +13,6 @@ std::vector<token> Parser::parse(std::string x) {
 };
 
 std::vector<token> Parser::tokenize(std::string x, std::string del) {
-	std::cout << x << "\n";
 
 	// i expect usage of ; at the end of lines
 	std::string helper = "";
@@ -23,7 +22,6 @@ std::vector<token> Parser::tokenize(std::string x, std::string del) {
 	std::unordered_set<char> operators = { '+', '-', '*', '/', '='};
 
 	for (int i = 0; i < (int)x.size(); i++) {
-		std::cout << x[i] << "\n";
 		token token;
 		// get string character
 		if (isalnum(x[i])) {
@@ -51,9 +49,6 @@ std::vector<token> Parser::tokenize(std::string x, std::string del) {
 		else if ((x[i])==';') {
 			token = create_token(helper);
 			result.push_back(token);
-			for (auto& i : result) {
-				std::cout << i.value << "\n";
-			}
 			return result;
 		}
 		else {
