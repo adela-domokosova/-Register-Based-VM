@@ -16,7 +16,6 @@ void VM::execute(std::vector<token> tokens) {
 	//when calling the Intruction static methods i can check for right number of args and their format
 
 	for(auto& t: tokens){
-		std::cout << "arg " << t.value << " \n";
 		args.push_back(t.value);
 	}
 
@@ -25,8 +24,14 @@ void VM::execute(std::vector<token> tokens) {
 	}
 	else if (instr == "move") {
 		Instruction::move(*this, args);
-	}else if(instr == "print"){
+	}else if (instr == "print"){
 		Instruction::print(*this, args);
+	}
+	else if (instr == "store") {
+		Instruction::store(*this, args);
+	}
+	else if (instr == "load") {
+		Instruction::load(*this, args);
 	}
 	else {
 		std::cerr << "Unknown instruction: " << instr << "\n";
