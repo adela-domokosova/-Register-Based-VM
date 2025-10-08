@@ -13,6 +13,8 @@ class VM
 public:
 	Parser parser;
 	std::unordered_map<std::string, std::function<void(VM&, const std::vector<int>&)>> actions;
+	std::unordered_map<std::string, uint16_t> symbolTable;
+	uint16_t nextFreeAddr = 0;
 
 	std::array<uint16_t, 16> regs; // R0-R15
 	std::uint16_t pc; // program counter

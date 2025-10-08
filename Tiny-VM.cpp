@@ -4,6 +4,10 @@
 
 int main()
 {
+    char ai = 'a';
+    uint16_t num = 'a';
+    std::cout << std::to_string(num);
+
     VM vm = VM();
 
     while (true) {
