@@ -1,13 +1,11 @@
 #include <iostream>
 #include "VM.h"
 #include "Instruction.h"
+#include "Lexer.h"
 
 int main()
 {
-    char ai = 'a';
-    uint16_t num = 'a';
-    std::cout << std::to_string(num);
-
+    Lexer lex = Lexer();
     VM vm = VM();
 
     while (true) {
@@ -15,9 +13,14 @@ int main()
         std::cout << "user@VM : ";
         std::getline(std::cin, x);
 
-
-        vm.execute(vm.parser.parse(x)); // returns whats needed to execute in vm
-
+        std::vector<token> vec = lex.tokenizer(x);
+        for (auto& t : vec) {
+            std::cout << "token" << "\n";
+            std::cout << t.type << "\n";
+            std::cout << t.number << "\n";
+            std::cout << t.string << "\n";
+            std::cout << t.character << "\n";
+        }
 
     
     }

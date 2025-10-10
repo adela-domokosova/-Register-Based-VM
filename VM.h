@@ -29,5 +29,4 @@ public:
 	// Constructor
 	VM();
 	VM(Parser parser);
-	void execute(std::vector<token> tokens);
 };

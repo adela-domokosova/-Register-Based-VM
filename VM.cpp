@@ -8,6 +8,7 @@ VM::VM(Parser parser){
 };
 
 //accepts line of VM readable code
+/**
 void VM::execute(std::vector<token> tokens) {
 	std::vector<std::string> args;
 	std::string instr = tokens.front().value;
@@ -39,3 +40,4 @@ void VM::execute(std::vector<token> tokens) {
 
 
 };
+**/

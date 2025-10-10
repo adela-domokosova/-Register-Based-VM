@@ -46,3 +46,10 @@ The virtual machine executes programs directly from the command line and can lat
 
 ### Example Syntax (high-level language)
 
+
+### Data types
+variables and methods = string of characters aphabetical and numbers
+string = string of characters in "" double quotes
+number = digit only characters -> think about floats
+bool = true/false
+char = '' one 8bit
