@@ -32,15 +32,13 @@ std::vector<token> Lexer::tokenizer(std::string str) {
 		else if (std::isdigit(str[i])) {
 			// build number
 			// int only now
+			// add negative numbers? 
 			res = build_number(i, str);
 			i = std::get<1>(res);
 		}
 		else if (std::isalpha(str[i])) {
-			// convert to lower case
-			// carefull next characters might not be alpha
-			// vnořená fce na rozpoznani key/varriable word -> končí mezerou?
-				// metoda končí ( ?
 			res = build_alphanum_string(i, str);
+			i = std::get<1>(res);
 
 		}
 		else if (std::isspace(str[i])) {
@@ -55,14 +53,14 @@ std::vector<token> Lexer::tokenizer(std::string str) {
 		}
 		else {
 			// exception, unknown character, skip whole instruction up to ;
-			std::cout << "unknown token in your input \n";
+			throw std::invalid_argument("Invalid input");
 		}
 		//push token to vector
 
 		result.push_back(std::get<0>(res));
 
 	}
-	std::cout << "cannot push tokens, wrong line ending \n";
+	throw std::runtime_error(" Error in token processing ");
 	//exeption, no ending to line
 };
 
@@ -79,7 +77,7 @@ std::tuple<token, int> Lexer::build_string(int x, const std::string& str) { //
 	return result;
 }
 
-std::tuple<token, int> Lexer::build_number(int x, std::string str) { //
+std::tuple<token, int> Lexer::build_number(int x, const std::string& str) { //
 	std::string helper;
 	while (x < str.size() && std::isdigit(str[x])) {
 		helper = helper + str[x];
@@ -91,7 +89,7 @@ std::tuple<token, int> Lexer::build_number(int x, std::string str) { //
 }
 
 
-std::tuple<token, int> Lexer::build_char(int x, std::string str) { //
+std::tuple<token, int> Lexer::build_char(int x, const std::string& str) { //
 	x++; //skip the '
 	char tchar = str[x];
 	x++;
@@ -100,9 +98,32 @@ std::tuple<token, int> Lexer::build_char(int x, std::string str) { //
 	return result;
 }
 
-std::tuple<token, int> Lexer::build_operator(int x, std::string str) { //
+std::tuple<token, int> Lexer::build_operator(int x, const std::string& str) { //
 	char ochar = str[x];
 	token t = { TokenType::OPERATOR, 0, "", ochar};
+	std::tuple<token, int> result = { t, x };
+	return result;
+}
+
+std::tuple<token, int> Lexer::build_alphanum_string(int x, const std::string& str){
+	// case insensitive, all alphy chars turn to lower case
+	// this can only be alpha num and _
+	//if anything else comes up it has to be its own TokenType
+	std::string helper = "";
+	while (x < str.size() && (std::isalnum(str[x]) || str[x] == '_')) {
+		if (std::isalpha(str[x])) {
+			char lower = std::tolower(str[x]);
+			helper = helper + lower;
+			x++;
+		}
+		else {
+			helper = helper + str[x];
+			x++;
+		}
+	}
+	x--; // the last character will not be part of 
+	// add look up for a keyword in unordered_set in Lexer class
+	token t = { TokenType::KEYWORD, 0 , helper, NULL };
 	std::tuple<token, int> result = { t, x };
 	return result;
 }
