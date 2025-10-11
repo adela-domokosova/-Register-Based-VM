@@ -7,6 +7,7 @@ Lexer creates vector of token. Lexer can categorize tokens in to enums.
 
 Lexer::Lexer() {};
 
+// switch to regex? NFA
 std::vector<token> Lexer::tokenizer(std::string str) {
 	// i expect usage of ; at the end of lines
 	std::vector<token> result;
@@ -60,7 +61,7 @@ std::vector<token> Lexer::tokenizer(std::string str) {
 		result.push_back(std::get<0>(res));
 
 	}
-	throw std::runtime_error(" Error in token processing ");
+	throw std::runtime_error("Missing semicolon");
 	//exeption, no ending to line
 };
 
